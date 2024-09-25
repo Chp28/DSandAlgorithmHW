@@ -8,8 +8,8 @@ private:
 	int age = 24;
 	char *name = nullptr;
 public:
-	Chicken(){};
-	Chicken(int _age) : age(_age) {};
+	Chicken() : age(0), name(nullptr){};
+	Chicken(int _age) : age(_age), name(nullptr) {};
 	Chicken(int _age, const char *_name) : age(_age)
 	{
 		int len = strlen(_name) + 1;
@@ -19,8 +19,9 @@ public:
 	};
 	~Chicken()
 	{
-		if(name != nullptr)
+		if(name != nullptr){
 			delete[] name;
+		}
 	}
 	void setAge(int _age)
 	{
@@ -28,6 +29,7 @@ public:
 	}
 	void setName(const char *_name)
 	{
+		delete[] name;
 		int len = strlen(_name) + 1;
 		name = new char[len];
 		for(int i=0; i<len ; i++)
@@ -74,12 +76,28 @@ public:
 
 int main()
 {
-	Chicken c1(24, "Kunkun");
-	cout<< "Hi, everyone! My name is " << c1.getName() << ", I am " << c1.getAge() << " years old." << endl;
-	Chicken c2(c1); //use replication function
-	cout<< "Hi, everyone! My name is " << c2.getName() << ", I am " << c2.getAge() << " years old." << endl;
-	Chicken c3(c1); //use operator"="
-	cout<< "Hi, everyone! My name is " << c3.getName() << ", I am " << c3.getAge() << " years old." << endl;
+	auto print = [](const Chicken &c){
+		cout<< "Hi, everyone! My name is "<< c.getName() << ", I am " << c.getAge() << "years old." << endl;
+	};
+	Chicken c(24, "Kunkun");
+	print(c);
+	
+	Chicken d;
+	d = c;
+	print(d);
+	
+	Chicken a = c;
+	print(a);
+	
+	c.setName("XuKun Cai");
+	print(c);
+	print(a);
+	print(d);
+	
+	Chicken b;
+	b = d = c;
+	print(b);
+	print(d);
 	return 0;
 }
 
