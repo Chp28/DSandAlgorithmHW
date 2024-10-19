@@ -1,0 +1,70 @@
+\documentclass[a4paper]{article}
+\usepackage[affil-it]{authbik}
+\usepackage[backend=bibtex,style=numeric]{biblatex}
+\usepackage{geometry}
+\usepackage{amsmath}
+\geometry{margin=1.5cm, vmargin={0pt,1cm}}
+\setlength{\topmargin}{-1cm}
+\setlength{\paperheight}{29.7cm}
+\setlength{\textheight}{25.3cm}
+
+\begin{document}
+% ==============================================
+\title{report}
+\author{Haopeng Chen 3220103347@zju.edu.cn}
+\date{\today}
+\maketitle
+% ==============================================
+\section*{Idea for program design}
+\begin{itemize}
+ \item First, create a "$List<int> lst$" to check the correctness of the "$init()$" function.
+
+ \item Then call the "$lst.size()$" and "$lst.empty()$" functions; if the output is "0" and "1", it indicates that the "$size()$" and "$empty()$" functions are correct.
+
+ \item Next, call "$lst.push\_back(i)$" and "$lst.push\_back(move(a))$" to test whether both insertion functions are correct; if the output is "0 1 2 3 4 5 6 7 8 9", it means the insertion functions are correct.
+
+ \item Then call the "$lst.front()$" and "$lst.back()$" functions; if the output is "0" and "9", it indicates that these functions are correct.
+
+ \item Following that, call "$lst.pop\_front()$"; if the output is "1 2 3 4 5 6 7 8 9", it shows that the function is correct.
+
+ \item Then call "$lst.pop\_back()$"; if the output is "1 2 3 4 5 6 7 8", it indicates that the function is correct.
+
+ \item Next, call "$lst.push\_front(b)$" and "$lst.pop\_front()$", "$lst.push\_front(move(a))$"; if both outputs are "0 1 2 3 4 5 6 7 8", it means that both operations related to "$push\_front()$" are correct.
+
+ \item Then call "$lst.insert(lst.end(), d)$" and "$lst.pop\_back()$", "$lst.insert(lst.end(), move(c))$"; if both outputs are "0 1 2 3 4 5 6 7 8 9", it indicates that both operations related to "$insert()$" are correct, and the "$end()$" function is also correct.
+
+ \item Next, call "$lst.erase(lst.begin())$" and "$lst.erase(lst.begin(), lst.end())$", "$lst.empty()$"; if the outputs are "1 2 3 4 5 6 7 8 9" and "1", respectively, it means that the "$begin()$" function is correct, and both operations related to "$erase()$" are also correct.
+
+ \item Then create a new list with "$List<int> \_lst({1,2,3,4})$" to check the correctness of the "$List(std::initializer\_list<Object> il)$" constructor; if the output is "1 2 3 4", it indicates that the function is correct.
+
+ \item Next, call "$lst = \_lst$" to check the correctness of the "$=$" operation; if the output is "1 2 3 4", it indicates that the operation is correct.
+
+ \item Then call "$List<int> l(lst)$"; if the output is "1 2 3 4", it indicates that the "$List(const List \&rhs)$" function is correct.
+
+ \item Following that, call "$List<int> \_l(move(lst))$"; if the output is "1 2 3 4", it indicates that the "$List(List \&\&rhs)$" function is correct.
+
+ \item Finally, call "$lst.clear()$"; if "$lst.empty()$" outputs "1", it indicates that the "$lst.clear()$" function is correct.
+\end{itemize}
+
+\section*{the result of test}
+\begin{itemize}
+ \item 0
+ \item 1
+ \item 0 1 2 3 4 5 6 7 8 9 
+ \item 0 9
+ \item 1 2 3 4 5 6 7 8 9
+ \item 1 2 3 4 5 6 7 8
+ \item 0 1 2 3 4 5 6 7 8
+ \item 0 1 2 3 4 5 6 7 8
+ \item 0 1 2 3 4 5 6 7 8 9
+ \item 1 2 3 4 5 6 7 8 9
+ \item 1
+ \item 1 2 3 4
+ \item 1 2 3 4
+ \item 1 2 3 4
+ \item 1 2 3 4
+ \item 1
+ \item I tested with valgrind and found no memory leaks
+\end{itemize}
+
+\end{document}
