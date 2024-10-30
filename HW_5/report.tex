@@ -1,0 +1,27 @@
+\documentclass[a4paper]{article}
+\usepackage[affil-it]{authbik}
+\usepackage[backend=bibtex,style=numeric]{biblatex}
+\usepackage{geometry}
+\usepackage{amsmath}
+\geometry{margin=1.5cm, vmargin={0pt,1cm}}
+\setlength{\topmargin}{-1cm}
+\setlength{\paperheight}{29.7cm}
+\setlength{\textheight}{25.3cm}
+
+\begin{document}
+% ==============================================
+\title{report}
+\author{Haopeng Chen 3220103347@zju.edu.cn}
+\date{\today}
+\maketitle
+% ==============================================
+\section*{I.The design idea of remove function}
+Design a `detachMin()` function to find the minimum node in the right subtree of the root node and replace the original root node with it. At the same time, remove the node from its original right subtree. The `detachMin()` function is only called within the `remove()` function when both the left and right subtrees of the node to be deleted exist. For other cases, keep the original code.
+
+The design idea for `detachMin()` is: Take the root node as the parent node and the right child node as the child node. Check if the left child of the child node is empty. If it is not empty, update the parent node to be the child node, and the child node to be the root of the left subtree of the child node. Keep searching until the left child of the current child node is empty. At this point, update the left child of the parent node to be the right subtree of the child node, and assign both the left and right children of the original root node to the current child node. After completing all operations, delete the original root node.
+
+\section*{II.Test}
+To test the `remove()` function, first create an empty Binary Search Tree (BST), then insert 10, 5, 15, 3, 7, 12, 18, 11, 13 in sequence. Then call `remove(10)` first, then call `remove(11)`. Print out the results in order. If the results are 3, 5, 7, 11, 12, 13, 15, 18 for the first call, and 3, 5, 7, 12, 13, 15, 18 for the second call, it means the `remove()` function is working correctly.
+
+For testing other functions, use the same test code as in the classroom.
+\end{document}
