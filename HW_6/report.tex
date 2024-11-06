@@ -1,0 +1,22 @@
+\documentclass[a4paper]{article}
+\usepackage[affil-it]{authbik}
+\usepackage[backend=bibtex,style=numeric]{biblatex}
+\usepackage{geometry}
+\usepackage{amsmath}
+\geometry{margin=1.5cm, vmargin={0pt,1cm}}
+\setlength{\topmargin}{-1cm}
+\setlength{\paperheight}{29.7cm}
+\setlength{\textheight}{25.3cm}
+
+\begin{document}
+% ==============================================
+\title{report}
+\author{Haopeng Chen 3220103347@zju.edu.cn}
+\date{\today}
+\maketitle
+% ==============================================
+\section*{The design idea of remove function}
+
+To begin with a method similar to a Binary Search Tree (BST), design a $detachMin()$ function that finds the smallest node in the right subtree of the current node and replaces the current node, while also deleting the original node. However, it is important to note that such a direct modification will disrupt the balance of the entire subtree below the current node, so design a function $complete\_balance()$, its role is to traverse all nodes and perform a balance operation on each one. After calling this function, the new node's subtree will be balanced, and the node before it can be returned.
+
+\end{document}
