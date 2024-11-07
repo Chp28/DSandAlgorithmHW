@@ -1,0 +1,54 @@
+\documentclass[a4paper]{article}
+\usepackage[affil-it]{authbik}
+\usepackage[backend=bibtex,style=numeric]{biblatex}
+\usepackage{geometry}
+\usepackage{amsmath}
+\geometry{margin=1.5cm, vmargin={0pt,1cm}}
+\setlength{\topmargin}{-1cm}
+\setlength{\paperheight}{29.7cm}
+\setlength{\textheight}{25.3cm}
+
+\begin{document}
+% ==============================================
+\title{report}
+\author{Haopeng Chen 3220103347@zju.edu.cn}
+\date{\today}
+\maketitle
+% ==============================================
+\section*{I.Design Approach:}
+\begin{itemize}
+\item Design a class Evaluator, whose constructor accepts a string representing a four-operand arithmetic expression. It provides a public interface $solve()$, through which the expression in the string can be calculated. If the expression is correct, it returns the result; if the expression is incorrect, it reports the corresponding error.
+
+\item In the private part of Evaluator, first design the $Catch()$ function, which returns a complete numeric substring from the specified string starting at the given index.
+
+\item Design the $string\_to\_double$ function, which returns the corresponding double type data by accepting a numeric string.
+
+\item Design the $isNumber()$ and $isOperator()$ functions, which are used to determine whether a specified character is a number or an operator.
+
+\item Design the $applyOperation()$ function, which accepts two double type data and an operator character, and then returns the corresponding result. If an operator other than the four basic arithmetic operations is read, an error will be reported.
+
+\item Design the $compute()$ function, which accepts two parameters, $vector<double>$ and $vector<char>$. The first parameter represents the arrangement of numbers from left to right in the four-operand arithmetic string, and the second parameter represents the arrangement of operators from left to right in the string. This function returns the result of the string operation. Note that this function is only used for processing simple four-operand arithmetic strings that do not contain parentheses.
+
+\item Design the $\_solve()$ function, which accepts a four-operand arithmetic string and returns the corresponding result. Its logic is as follows: it reads numbers and operators alternately from left to right and saves them in $vector<double> Number$ and $vector<char> Operator$, respectively. When a left parenthesis is read, it searches for the first right parenthesis from right to left. If it does not exist, an error is reported. Otherwise, the substring inside the parentheses is taken, and $\_solve()$ is called recursively, and the calculated double data is saved in Number. If it is found that numbers and operators are not alternately proceeding during the process, an error will be reported. If the number of simplified numbers is not equal to the number of operators, an error will also be reported. Finally, the compute function is used to calculate the result of the simplified four-operand arithmetic string.
+
+\end{itemize}
+
+\section*{II.Test Data}
+Test the Evaluator class with the following data:
+
+\begin{itemize}
+\item $1+1$
+\item $1++2$
+\item $+1+2$
+\item $1.2+3.5$
+\item $1.2+(2.1/3+4)-2$
+\item $1+((1+1)+1$
+\item $1+((2*3-(1/2+2-1)+2)*6-2)-2$
+\item $1+1*2+1$
+\item $1+2^{3}+8$
+\item $2+3/(2-2)+1$
+\end{itemize}
+
+These data test for illegal situations such as unmatched parentheses, continuous use of operators, expressions starting or ending with operators, and zero divisors, as well as complex situations with decimals and multiple parentheses. The results are all correct.
+
+\end{document}
