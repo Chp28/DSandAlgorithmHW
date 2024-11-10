@@ -1,5 +1,5 @@
 run:
-	g++ main.cpp -o test
+	g++ test.cpp -o test -O2
 	./test
 clean:
 	rm test

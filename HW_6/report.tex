@@ -16,7 +16,15 @@
 \maketitle
 % ==============================================
 \section*{The design idea of remove function}
+For the case where both the left and right subtrees of the current node exist, there are two scenarios to discuss:
+\begin{itemize}
+\item 1. If the left subtree of the root node of the right subtree does not exist, change the left subtree of the root node of the right subtree to the left subtree of the original root node. Then update the original root node to the root node of the right subtree, and then delete the original root node.
 
-To begin with a method similar to a Binary Search Tree (BST), design a $detachMin()$ function that finds the smallest node in the right subtree of the current node and replaces the current node, while also deleting the original node. However, it is important to note that such a direct modification will disrupt the balance of the entire subtree below the current node, so design a function $complete\_balance()$, its role is to traverse all nodes and perform a balance operation on each one. After calling this function, the new node's subtree will be balanced, and the node before it can be returned.
+\item 2. If the left subtree of the root node of the right subtree exists, set $oldNode$ to save the original root node, then update the original root node to the root node of the right subtree, and set the $parent$ variable to save the parent node of the current node, then enter the loop. The purpose of the loop is to find the minimum value node by continuously updating the current node to the root node of the left subtree and updating the parent node at the same time. In addition, in the loop, use $vector<AvlNode*>temp$ to save the parent nodes.
+\end{itemize}
+After finding the target node, update the left subtree root node of the parent node to the right subtree root node of the current node. Then update the left and right subtree root nodes of the current node to the left and right subtree root nodes of the original node. Then delete the original root node, and then update the balance status of the parent nodes from back to front through the $balance()$ function using the $temp$ vector.
+
+\section*{Test function results}
+The $testRandomData()$ test is correct, the $testIncreasingData$ test causes a segmentation fault, but after changing the order of magnitude of N from ten thousand to ten thousand, the test is correct.
 
 \end{document}

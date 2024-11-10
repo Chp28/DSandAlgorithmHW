@@ -2,7 +2,8 @@
 #define AVL_TREE_H
 
 #include <algorithm>
-#include <iostream> 
+#include <iostream>
+#include <vector>
 using namespace std;
 
 class UnderflowException { };
@@ -153,7 +154,7 @@ class AvlTree
         remove( x, root );
     }
 
-  private:
+  protected:
     struct AvlNode
     {
         Comparable element;
@@ -213,29 +214,6 @@ class AvlTree
      * t is the node that roots the subtree.
      * Set the new root of the subtree.
      */
-    AvlNode* detachMin(AvlNode* &t)
-    {
-	AvlNode* parent = t;
-	AvlNode* cur = t->right;
-	while(cur->left != nullptr){
-		parent = cur;
-		cur = cur->left;
-	}
-	parent->left = cur->right;
-	cur->left = t->left;
-	cur->right = t->right;
-	delete t;
-	return cur;
-    }
-    
-    void complete_balance(AvlNode* &t)
-    {
-    	if(t==nullptr)
-    		return;
-    	complete_balance(t->left);
-    	complete_balance(t->right);
-    	balance(t);
-    }
     
     void remove( const Comparable & x, AvlNode * & t )
     {
@@ -248,9 +226,29 @@ class AvlTree
             remove( x, t->right );
         else if( t->left != nullptr && t->right != nullptr ) // Two children
         {
-            t = detachMin(t);
-            complete_balance(t);
-            return;
+            if(t->right->left==nullptr){
+                AvlNode* oldNode = t;
+            	t->right->left = t->left;
+            	t = t->right;
+            	delete oldNode;
+            }else{
+            	AvlNode* parent = t;
+            	AvlNode* oldNode = t;
+            	t = t->right;
+	    	vector<AvlNode*> temp;
+		while(t->left != nullptr){
+		    parent = t;
+    		    t = t->left;
+    		    temp.emplace_back(parent);
+		}
+		parent->left = t->right;
+		t->left = oldNode->left;
+		t->right = oldNode->right;
+		delete oldNode;
+		for(int i=temp.size()-1; i>=0 ; i--){
+		    	balance(temp[i]);
+		}
+	     }
         }
         else
         {
