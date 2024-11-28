@@ -1,0 +1,42 @@
+\documentclass[a4paper]{article}
+\usepackage[affil-it]{authbik}
+\usepackage[backend=bibtex,style=numeric]{biblatex}
+\usepackage{geometry}
+\usepackage{amsmath}
+\geometry{margin=1.5cm, vmargin={0pt,1cm}}
+\setlength{\topmargin}{-1cm}
+\setlength{\paperheight}{29.7cm}
+\setlength{\textheight}{25.3cm}
+
+\begin{document}
+% ==============================================
+\title{report}
+\author{Haopeng Chen 3220103347@zju.edu.cn}
+\date{\today}
+\maketitle
+% ==============================================
+\subsection*{The idea of Design:}
+\begin{itemize}
+\item 1.design a class $HeapSort$, which has three variables $heap$, $elapsed$, and $size$, respectively to store a max heap, the sorting runtime, and the array size. It accepts an array and copies it to the heap variable.  
+
+\item 2.Design a $make\_heap()$ function, which takes a position $i$ and causes the element at that position to sink down through the subtree based on its size comparison with its child nodes.
+
+\item 3.Design a $Generate()$ function, which starts from the last position that has child nodes in the current heap and calls the $make\_heap()$ function for each of these positions, turning heap into a max heap.
+
+\item 4.Design a $sort()$ function, which first calls the $Generate()$ function, then starts from the last position, swaps it with the first element, and treats the first element and those before it as a new heap. Then, with the current position as the cur variable, it enters a while loop. In each iteration, it compares the current element with its child nodes, swaps if necessary, and updates the cur variable to the corresponding child node until the cur node is out of the specified range or is already larger than its child nodes. Additionally, elapsed will store the runtime within the $sort()$ function.  
+
+\item 5.Design a $check()$ function, which uses a for loop to compare the size relationship between adjacent elements to determine if the sorting by $sort()$ is correct.
+\end{itemize}
+
+\subsection*{Testing Process:} 
+According to the requirements of the problem, generate the corresponding sequences one by one. For each sequence, test it with the designed HeapSort class and with STL's $sort\_heap()$, and then compare the results. 
+
+\subsection*{Results (the former is the result of the designed assignment, and the latter is the result of STL):} 
+\begin{itemize}
+\item $0.369304s \space 0.643191s$
+\item $0.273023s \space 0.435166s$
+\item $0.256999s \space 0.518615s$
+\item $0.379295s \space 0.579163s$
+\end{itemize}
+
+\end{document}
