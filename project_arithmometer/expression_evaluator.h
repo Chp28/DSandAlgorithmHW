@@ -113,12 +113,20 @@ private:
     			continue;
     		}
     		if(flag==0 && s[index]=='('){
-    			int tail = s.size()-1;
+    			int tail = index+1;
     			int sign = -1;
-    			for(tail; tail>index+1; tail--){
-    				if(s[tail]==')'){
+    			int cnt = 1;
+    			for(tail; tail<s.size(); tail++){
+    				if(s[tail]=='('){
+    					cnt++;
+    					continue;
+    				}
+    				if(s[tail]==')' && cnt==1){
     					sign = 0;
     					break;
+    				}else if(s[tail]==')'){
+    					cnt--;
+    					continue;
     				}
     			}
     			if(sign==-1){
